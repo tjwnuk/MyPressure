@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "MyPressure",
+    "slug": "MyPressure",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "MyPressure"
+}
