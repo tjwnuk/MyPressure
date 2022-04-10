@@ -3,9 +3,20 @@
     "name": "MyPressure",
     "slug": "MyPressure",
     "version": "1.0.0",
+    "icon": "./app/assets/icon.png",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "ios": {
+      "bundleIdentifier": "com.github.tjwnuk.mypressure",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.github.tjwnuk.mypressure",
+      "versionCode": 1
+    },
+    "description": "Personal blood pressure log",
+    "githubUrl": "https://github.com/tjwnuk/MyPressure"
   },
   "name": "MyPressure"
 }
