@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
 import colors from '../config/colors';
@@ -10,9 +10,26 @@ function AddItemScreen(props) {
 
     const navigation = useNavigation();
 
-    const [systolicBloodPressure, setSystolicBloodPressure] = useState(0); // ciśnienie skurczowe, górne
-    const [diastolicBloodPressure, setDiastolicBloodPressure] = useState(0); // ciśnienie skurczowe, dolne
-    const [pulse, setPulse] = useState(0);
+    let [systolic, setSystolic] = useState(0); // ciśnienie skurczowe, górne
+    let [diastolic, setDiastolic] = useState(0); // ciśnienie skurczowe, dolne
+    let [pulse, setPulse] = useState(0);
+
+    // useEffect(() => {
+    //     // updated useerdeails
+    // }, [systolic]);
+
+    const handleSystolic = (text) => {
+        let value = parseInt(text)
+        setSystolic(prev => value)
+    }
+    const handleDiastolic = (text) => {
+        let value = parseInt(text)
+        setDiastolic(prev => value)
+    }
+    const handlePulse = (text) => {
+        let value = parseInt(text)
+        setPulse(prev => value)
+    }
 
     return (
         <Screen style={styles.container}>
@@ -26,7 +43,7 @@ function AddItemScreen(props) {
                     autoCapitalize='none'
                     autoCorrect={false}
                     keyboardType='number-pad'
-                    onChange={setSystolicBloodPressure}
+                    onChangeText={value => handleSystolic(value)}
                 />
 
                 <Text style={styles.text}>Diastolic blood pressure: </Text>
@@ -37,7 +54,7 @@ function AddItemScreen(props) {
                     autoCapitalize='none'
                     autoCorrect={false}
                     keyboardType='number-pad'
-                    onChange={setDiastolicBloodPressure}
+                    onChangeText={value => handleDiastolic(value)}
                 />
 
                 <Text style={styles.text}>Pulse</Text>
@@ -48,15 +65,11 @@ function AddItemScreen(props) {
                     autoCapitalize='none'
                     autoCorrect={false}
                     keyboardType='number-pad'
-                    onChange={setPulse}
+                    onChangeText={value => handlePulse(value)}
                 />
 
             </View>
             <View style={styles.buttonsContainer}>
-                {/* <Button
-                    title="Dodaj pomiar"
-                    onPress={() => navigation.navigate('AddItemScreen')}
-                ></Button> */}
                 <AppButton
                     title={'Cancel'}
                     onPress={() => navigation.goBack()}
@@ -64,7 +77,14 @@ function AddItemScreen(props) {
                 />
                 <AppButton
                     title="Save"
-                    onPress={() => { alert('zapisano') }}
+                    onPress={() => navigation.navigate('HomeScreen', {
+                        newEntry:
+                        {
+                            systolic: systolic,
+                            diastolic: diastolic,
+                            pulse: pulse,
+                        }
+                    })}
                     width='100%'
                 />
             </View>
