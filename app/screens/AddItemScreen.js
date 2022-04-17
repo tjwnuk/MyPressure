@@ -78,12 +78,14 @@ function AddItemScreen(props) {
                 <AppButton
                     title="Save"
                     onPress={() => navigation.navigate('HomeScreen', {
-                        newEntry:
+                        newItem:
                         {
+                            id: 2,
                             systolic: systolic,
                             diastolic: diastolic,
                             pulse: pulse,
-                        }
+                        },
+                        update: true,
                     })}
                     width='100%'
                 />

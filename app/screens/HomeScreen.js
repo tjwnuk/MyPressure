@@ -23,16 +23,22 @@ let initialData = [
     }
 ]
 
+let temp_item = {
+    id: 2,
+    date: 'wtorek',
+    systolic: 160,
+    diastolic: 190,
+    pulse: 95,
+}
+
 function HomeScreen({ navigation, route }) {
     let [data, setData] = React.useState(initialData);
 
-    if (typeof route.params !== 'undefined') {
-        // setData(route.params.push(newEntry));
-        // console.log(route.params.systolic)
-        // console.log(route.params.diastolic)
-        // console.log(route.params.pulse)
-        console.log(route.params.newEntry)
-    }
+    React.useEffect(() => {
+        if (route.params?.newItem) {
+            setData(prev => prev.concat(route.params.newItem))
+        }
+    }, [route.params?.newItem]);
 
     var renderListItem = ({ item }) => {
         return (
@@ -41,6 +47,7 @@ function HomeScreen({ navigation, route }) {
                 diastolic={item.diastolic}
                 pulse={item.pulse}
                 date={item.date}
+                key={item.id}
             />
         )
     }
@@ -55,7 +62,8 @@ function HomeScreen({ navigation, route }) {
 
                 <FlatList
                     data={data}
-                    keyExtractor={item => item}
+                    keyExtractor={item => item.id}
+
                     renderItem={renderListItem}
                 />
 
@@ -68,7 +76,7 @@ function HomeScreen({ navigation, route }) {
                     onPress={() => navigation.navigate('AddItemScreen')}
                 ></AppButton>
             </View>
-        </Screen>
+        </Screen >
     );
 }
 
