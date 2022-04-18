@@ -61,7 +61,10 @@ function HomeScreen({ navigation, route }) {
         let year = date.getFullYear()
         let weekday = date.getDay();
 
-        return `${weekdays[weekday]} \n ${day}.${month}.${year}`
+        let minutes = date.getMinutes();
+        let hours = date.getHours();
+
+        return `${weekdays[weekday]}, ${hours}:${minutes} \n ${day}.${month}.${year}`
     }
 
     var renderListItem = ({ item }) => {
