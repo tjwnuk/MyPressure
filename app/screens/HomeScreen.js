@@ -16,19 +16,23 @@ import Screen from './Screen';
 let initialData = [
     {
         id: 1,
-        date: 'poniedziałek',
+        date: new Date(0),
         systolic: 140,
         diastolic: 90,
         pulse: 86,
+    },
+    {
+        id: 2,
+        date: new Date(0),
+        systolic: 160,
+        diastolic: 190,
+        pulse: 95,
     }
 ]
 
-let temp_item = {
-    id: 2,
-    date: 'wtorek',
-    systolic: 160,
-    diastolic: 190,
-    pulse: 95,
+function maxID(arr) {
+    let max = Math.max.apply(Math, arr.map(function (object) { return object.id; }))
+    return max
 }
 
 function HomeScreen({ navigation, route }) {
@@ -36,9 +40,29 @@ function HomeScreen({ navigation, route }) {
 
     React.useEffect(() => {
         if (route.params?.newItem) {
-            setData(prev => prev.concat(route.params.newItem))
+            let newData = data.concat(route.params.newItem)
+            newData.sort((a, b) => {
+                return b.id - a.id;
+            });
+
+            // console.log(temp_data)
+
+            setData((prev) => {
+                return newData;
+            })
         }
     }, [route.params?.newItem]);
+
+    var renderDate = (date) => {
+        const weekdays = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
+        let day = date.getDate()
+        let month = date.getMonth() + 1
+        let year = date.getFullYear()
+        let weekday = date.getDay();
+
+        return `${weekdays[weekday]} \n ${day}.${month}.${year}`
+    }
 
     var renderListItem = ({ item }) => {
         return (
@@ -46,11 +70,15 @@ function HomeScreen({ navigation, route }) {
                 systolic={item.systolic}
                 diastolic={item.diastolic}
                 pulse={item.pulse}
-                date={item.date}
+                date={renderDate(item.date)}
                 key={item.id}
             />
         )
     }
+
+    let lastItemID = maxID(data);
+    // console.log("max " + lastItemID + typeof (lastItemID))
+    // console.log(data)
 
     return (
         <Screen style={styles.container}>
@@ -73,7 +101,7 @@ function HomeScreen({ navigation, route }) {
             <View style={styles.buttonsContainer}>
                 <AppButton
                     title="Add"
-                    onPress={() => navigation.navigate('AddItemScreen')}
+                    onPress={() => navigation.navigate('AddItemScreen', { 'lastItemID': lastItemID, })}
                 ></AppButton>
             </View>
         </Screen >

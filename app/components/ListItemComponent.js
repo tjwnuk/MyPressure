@@ -14,7 +14,7 @@ function ListItemComponent({ systolic, diastolic, pulse, date }) {
 
             {/* Date and time */}
             <View style={styles.dateBox}>
-                <Text>{date}</Text>
+                <Text style={styles.date}>{date}</Text>
             </View>
 
             {/* Pulse box */}
@@ -81,6 +81,9 @@ const styles = StyleSheet.create({
     pulse: {
         fontSize: 30,
         fontWeight: '600',
+    },
+    date: {
+        textAlign: 'center',
     }
 })
 

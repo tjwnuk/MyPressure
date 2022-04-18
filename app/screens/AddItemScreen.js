@@ -6,7 +6,7 @@ import Screen from './Screen';
 import AppButton from '../components/AppButton';
 import { useNavigation } from '@react-navigation/native';
 
-function AddItemScreen(props) {
+function AddItemScreen({ route }) {
 
     const navigation = useNavigation();
 
@@ -30,6 +30,8 @@ function AddItemScreen(props) {
         let value = parseInt(text)
         setPulse(prev => value)
     }
+
+    // alert(route.params.lastItemID);
 
     return (
         <Screen style={styles.container}>
@@ -80,10 +82,11 @@ function AddItemScreen(props) {
                     onPress={() => navigation.navigate('HomeScreen', {
                         newItem:
                         {
-                            id: 2,
+                            id: route.params.lastItemID + 1,
                             systolic: systolic,
                             diastolic: diastolic,
                             pulse: pulse,
+                            date: new Date(),
                         },
                         update: true,
                     })}
