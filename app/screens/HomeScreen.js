@@ -11,24 +11,7 @@ import ListItemComponent from '../components/ListItemComponent';
 import colors from '../config/colors';
 import Screen from './Screen';
 
-// import { route } from '@react-navigation';
-
-let initialData = [
-    {
-        id: 1,
-        date: new Date(0),
-        systolic: 140,
-        diastolic: 90,
-        pulse: 86,
-    },
-    {
-        id: 2,
-        date: new Date(0),
-        systolic: 160,
-        diastolic: 190,
-        pulse: 95,
-    }
-]
+let initialData = []
 
 function maxID(arr) {
     let max = Math.max.apply(Math, arr.map(function (object) { return object.id; }))
@@ -42,10 +25,8 @@ function HomeScreen({ navigation, route }) {
         if (route.params?.newItem) {
             let newData = data.concat(route.params.newItem)
             newData.sort((a, b) => {
-                return b.id - a.id;
+                return b.date - a.date;
             });
-
-            // console.log(temp_data)
 
             setData((prev) => {
                 return newData;

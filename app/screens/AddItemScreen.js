@@ -79,17 +79,19 @@ function AddItemScreen({ route }) {
                 />
                 <AppButton
                     title="Save"
-                    onPress={() => navigation.navigate('HomeScreen', {
-                        newItem:
-                        {
-                            id: route.params.lastItemID + 1,
-                            systolic: systolic,
-                            diastolic: diastolic,
-                            pulse: pulse,
-                            date: new Date(),
-                        },
-                        update: true,
-                    })}
+                    onPress={() => {
+                        navigation.navigate('HomeScreen', {
+                            newItem:
+                            {
+                                id: route.params.lastItemID + 1,
+                                systolic: systolic,
+                                diastolic: diastolic,
+                                pulse: pulse,
+                                date: new Date(),
+                            },
+                            update: true,
+                        })
+                    }}
                     width='100%'
                 />
             </View>
